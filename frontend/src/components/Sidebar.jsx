@@ -6,21 +6,24 @@ import {
   ListItemText,
   ListItemButton,
   List,
+  Switch,
 } from "@mui/material";
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
 import CameraRollIcon from '@mui/icons-material/CameraRoll';
 import EventIcon from '@mui/icons-material/Event';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
+import Brightness2Icon from '@mui/icons-material/Brightness2';
 
-const Sidebar = () => {
+const Sidebar = ({mode,setMode}) => {
   return (
     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box position="fixed" >
       <List>
         <ListItem disablePadding>
           <ListItemButton component="a" href="#Theatre">
             <ListItemIcon>
-              <MovieCreationIcon />
+              <MovieCreationIcon  />
             </ListItemIcon>
             <ListItemText primary="Theatre releases" />
           </ListItemButton>
@@ -29,7 +32,7 @@ const Sidebar = () => {
         <ListItem disablePadding>
           <ListItemButton component="a" href="#Ott">
             <ListItemIcon>
-              <CameraRollIcon />
+              <CameraRollIcon  />
             </ListItemIcon>
             <ListItemText primary="Ott releases" />
           </ListItemButton>
@@ -61,7 +64,18 @@ const Sidebar = () => {
             <ListItemText primary="Connect" />
           </ListItemButton>
         </ListItem>
+
+        
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#videos">
+            <ListItemIcon>
+              <Brightness2Icon />
+            </ListItemIcon>
+            <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")} />
+          </ListItemButton>
+        </ListItem>
       </List>
+      </Box>
     </Box>
   );
 };

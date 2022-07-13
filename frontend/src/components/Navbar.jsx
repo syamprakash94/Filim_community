@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import GroupIcon from "@mui/icons-material/Group";
-
+import "./Navbar.css";
 import { useState } from "react";
 
 const StyledToolbar = styled(Toolbar)({
@@ -50,10 +50,10 @@ const UserBox = styled("Box")(({ theme }) => ({
 const Navbar = () => {
   const [open, setopen] = useState(false);
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{ bgcolor:"black"}}>
       <StyledToolbar>
-        <Typography variant="h5" sx={{ display: { xs: "none", sm: "block" } }}>
-          Film Chatz .
+        <Typography className="film" variant="h6" fontWeight={800}  sx={{ display: { xs: "none", sm: "block" } }}>
+          <span className="filmname">Film</span> Chatz <span className="filmname">.</span>
         </Typography>
         <TheatersOutlinedIcon sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
@@ -103,7 +103,7 @@ const Navbar = () => {
         <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>
-         {/* Drop down */}
+      {/* Drop down */}
     </AppBar>
   );
 };
