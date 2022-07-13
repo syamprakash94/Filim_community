@@ -1,31 +1,17 @@
-import Feed from "./components/Feed";
-import Rightbar from "./components/Rightbar";
-import Sidebar from "./components/Sidebar";
-import { Box, Stack,createTheme, ThemeProvider } from "@mui/material";
-import Navbar from "./components/Navbar";
-import { useState } from "react";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./components/Login/Login";
+import Signup from "./components/Signup/Signup";
+import Home from "./pages/Home";
 
 function App() {
-  const [mode,setMode] = useState("light")
-
-  const darkTheme = createTheme({
-    palette:{
-      mode: mode
-    }
-  })
   return (
-    <ThemeProvider theme={darkTheme}>
-   <Box bgcolor={"background.default"} color={"text.primary"}>
-      <Navbar />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar setMode={setMode} mode={mode}/>
-        <Feed />
-        <Rightbar />
-      </Stack>
-     
-    </Box>
-    </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
