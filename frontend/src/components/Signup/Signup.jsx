@@ -1,55 +1,57 @@
-import * as React from 'react';
+import * as React from "react";
 import { useState } from "react";
 
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
 import "../Signup/Signup";
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("")
-    const [confirmpassword, setConfirmPassword] = useState("");
-
-    const [ setError] = useState('');
-  const [message, setMessage] = useState(false);
-
-  const navigate = useNavigate()
-
-  
-
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [username, setUsername] = useState("");
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpass, setConfirmpass] = useState("");
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmpass) {
+      setMessage("Passwords Do not Match");
+    } else {
+      setMessage(null);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+
+        const { data } = await axios.post(
+          "users/register",
+          { username, email, password },
+          config
+        );
+      
+        navigate("/login");
+      } catch (error) {
+        setError(error.response.data.message)
+      }
+    }
   };
 
   return (
@@ -59,36 +61,38 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-         
-          <Typography className='signup' component="h1" variant="h5" fontWeight={700}>
+          <Typography
+            className="signup"
+            component="h1"
+            variant="h5"
+            fontWeight={700}
+          >
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          {message && <Typography>{message}</Typography>}
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              
+              <Grid item xs={12} >
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
+                  id="userName"
+                  label="User Name"
+                  name="userName"
                   autoComplete="family-name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +103,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,6 +116,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
 
@@ -117,14 +125,15 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="confirmpassword"
                   label="Confirm Password"
                   type="password"
-                  id="password"
+                  id="confirmpassword"
                   autoComplete="new-password"
+                  value={confirmpass}
+                  onChange={(e) => setConfirmpass(e.target.value)}
                 />
               </Grid>
-            
             </Grid>
             <Button
               type="submit"
@@ -143,7 +152,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        
       </Container>
     </ThemeProvider>
   );

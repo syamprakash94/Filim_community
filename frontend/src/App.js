@@ -4,11 +4,13 @@ import Signup from "./components/Signup/Signup";
 import Home from "./pages/Home";
 
 function App() {
+
+  const user = localStorage.getItem("userInfo")
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
+        <Route exact path="/" element={user ? <Home /> : <Login/>}></Route>
+        <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>

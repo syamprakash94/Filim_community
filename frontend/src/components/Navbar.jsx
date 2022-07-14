@@ -16,6 +16,8 @@ import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import "./Navbar.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -49,6 +51,9 @@ const UserBox = styled("Box")(({ theme }) => ({
 
 const Navbar = () => {
   const [open, setopen] = useState(false);
+
+  const navigate = useNavigate()
+
   return (
     <AppBar position="sticky" sx={{ bgcolor:"black"}}>
       <StyledToolbar>
@@ -101,7 +106,13 @@ const Navbar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={ () =>{
+          localStorage.removeItem("userInfo")
+          navigate("/login")
+
+        }}>
+        Logout
+        </MenuItem>
       </Menu>
       {/* Drop down */}
     </AppBar>

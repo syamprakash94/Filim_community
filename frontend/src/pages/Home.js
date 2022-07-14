@@ -5,6 +5,9 @@ import { Box, Stack, createTheme, ThemeProvider } from "@mui/material";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 
+
+
+
 const Home = () => {
   const [mode, setMode] = useState("light");
 
