@@ -56,7 +56,8 @@ export default function Login() {
 
      
     } catch (error) {
-      setError(error.response.data.message);
+     
+      setError(error.response.data);
     }
   };
 
@@ -75,6 +76,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
+         
 
           <Box
             component="form"
@@ -107,7 +109,7 @@ export default function Login() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
-
+ <Typography sx={{color:"red"}}><small>{error}</small> </Typography>
             <Button
               type="submit"
               fullWidth

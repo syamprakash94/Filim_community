@@ -8,13 +8,30 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ImageIcon from "@mui/icons-material/Image";
 import { red } from "@mui/material/colors";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Add.css";
-
 import { Box } from "@mui/system";
 import { Button, ButtonGroup, Stack } from "@mui/material";
+import axios from "axios";
 
-const Add = () => {
+const user = localStorage.getItem("userInfo")
+const User = JSON.parse(user)
+
+const Add = (post) => {
+
+  const [user, setUser] = useState({});
+  const PF = "http://localhost:3000/assets/";
+
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`users/${post.userId}`);
+      setUser(res.data);
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <>
       <Card sx={{ maxWidth: 610, margin: 5 }}>
@@ -22,7 +39,7 @@ const Add = () => {
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
+               <img className="postProfileImage" src={user.profilePicture ||PF + "person/noAvatar.png"} alt="" />
               </Avatar>
             }
           />

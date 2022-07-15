@@ -21,6 +21,6 @@ router.route("/:id/like").put(likeDislikePost);
 //get a post
 router.route("/:id").get(getPost);
 //get timeline posts
-router.route("/timeline/all").get(timelineAll);
+router.route("/timeline/:userId").get(timelineAll);
 
 module.exports = router;

@@ -1,6 +1,9 @@
-
-.hrtag{
-    background-color: darkgray;
+.hrtag {
+  background-color: darkgray;
   margin-left: 25px;
-    max-width: 90%;
+  max-width: 90%;
+}
+.postProfileImage {
+  width: 40px;
+  height: 40px;
 }
