@@ -20,10 +20,12 @@ export default function Login() {
   const [error, setError] = useState(false);
   const navigate=useNavigate()
 
+  const userInfo = localStorage.getItem("userInfo");
+  const tok = sessionStorage.getItem("token")
+  const token = JSON.parse(tok)
+  console.log("dddd",token);
   useEffect(() => {
     
-  const userInfo = localStorage.getItem("userInfo");
-
   if (userInfo) {
    navigate("/")
   }
@@ -39,15 +41,18 @@ export default function Login() {
       const config = {
         headers: {
           "Content-type": "application/json",
+          "auth-header": token
         },
       };
 
      
 
       const { data } = await axios.post("users/login",{email,password} );
-      console.log(data);
+      
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/")
+      console.log("rttt",data.token);
+      sessionStorage.setItem("token",JSON.stringify(data.token))
+      navigate("/") 
 
      
     } catch (error) {
@@ -114,8 +119,9 @@ export default function Login() {
 
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+               
+                <Link href="/signup" variant="body2">
+                Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>

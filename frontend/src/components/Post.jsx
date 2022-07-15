@@ -1,23 +1,21 @@
 import React from 'react'
 import { Checkbox } from '@mui/material'
-
+import "./Post.css"
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
 import ShareIcon from '@mui/icons-material/Share';
-
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Favorite from '@mui/icons-material/Favorite';
 
-function Post() {
+export default function Post({post}) {
+  console.log("ffff",post);
   return (
     <Card sx={{ margin: 5}}>
     <CardHeader
@@ -34,6 +32,8 @@ function Post() {
       title="Shrimp and Chorizo Paella"
       subheader="September 14, 2016"
     />
+
+    <Typography sx={{mb:2, ml:3}} >hii all</Typography>
     <CardMedia
       component="img"
       height="20%"
@@ -48,6 +48,7 @@ function Post() {
         if you like.
       </Typography>
     </CardContent>
+    <hr className='hrtag'></hr>
     <CardActions disableSpacing>
       <IconButton aria-label="add to favorites">
       <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{color:"red"}} />} />
@@ -63,4 +64,3 @@ function Post() {
   )
 }
 
-export default Post
