@@ -14,10 +14,10 @@ import EventIcon from '@mui/icons-material/Event';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import Brightness2Icon from '@mui/icons-material/Brightness2';
-
+import "./Sidebar.css"
 const Sidebar = ({mode,setMode}) => {
   return (
-    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }} className="sidebar">
         <Box position="fixed" >
       <List>
         <ListItem disablePadding>

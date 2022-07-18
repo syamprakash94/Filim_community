@@ -4,6 +4,7 @@ const generateToken = require("../utils/generateToken");
 
 //signup or register user
 registerUser = async (req, res) => {
+  console.log(req.body,"call is in the ebackend");
   try {
     //generate new password and bcrypt
     const salt = await bcrypt.genSalt(10);
@@ -28,10 +29,12 @@ registerUser = async (req, res) => {
 
 
 loginUser = async (req, res) => {
+  
   const user = await User.findOne({ email: req.body.email });
+  console.log(user,"kkk");
   if (user && (await bcrypt.compare(req.body.password, user.password))) {
     res.status(200).json({
-      user,
+      user, 
       token: generateToken(user._id),
     });
   } else {
@@ -52,7 +55,7 @@ updateUser = async (req, res) => {
     }
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
-        $set: req.body,
+        $set: req.body, 
       });
       res.status(200).json("Account has been updated");
     } catch (err) {

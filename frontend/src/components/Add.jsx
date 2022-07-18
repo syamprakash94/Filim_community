@@ -6,67 +6,113 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import Avatar from "@mui/material/Avatar";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ImageIcon from "@mui/icons-material/Image";
-import { red } from "@mui/material/colors";
-import DateRangeIcon from "@mui/icons-material/DateRange";
+
 import React, { useEffect, useState } from "react";
 import "./Add.css";
 import { Box } from "@mui/system";
 import { Button, ButtonGroup, Stack } from "@mui/material";
 import axios from "axios";
+import { useRef } from "react";
 
-const user = localStorage.getItem("userInfo")
-const User = JSON.parse(user)
+const user = localStorage.getItem("userInfo");
+const User = JSON.parse(user);
 
 const Add = (post) => {
-
-  const [user, setUser] = useState({});
+  
+  const [user, setUser] = useState(null);
   const PF = "http://localhost:3000/assets/";
+  const desc = useRef();
+  const [file, setFile] = useState(null);
 
   
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(`users/${post.userId}`);
-      setUser(res.data);
+  const submitHandler = async (e) => {
+    
+    e.preventDefault();
+    const newPost = {
+      userId: User?.user._id,
+      desc: desc.current.value,
+      
     };
+   
+    
+// multer
+if (file) {
+  const data = new FormData();
+  const fileName = Date.now() + file.name;
+  data.append("name", fileName);
+  data.append("file", file);
+  newPost.img = fileName;
+  console.log(newPost);
+  try {
+    await axios.post("/upload", data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+    try {
+      await axios.post("/posts", newPost);
+      window.location.reload()
+    } catch (err) {}
+  };
 
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUser = async () => {     
+  //     const res = await axios.get('users/'+post.userId);     
+  //     setUser(res.data);
+  //   }
+  //   fetchUser();
+  // }, [post.userId]);
 
   return (
     <>
       <Card sx={{ maxWidth: 610, margin: 5 }}>
-        <Box display={"flex"}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-               <img className="postProfileImage" src={user.profilePicture ||PF + "person/noAvatar.png"} alt="" />
-              </Avatar>
-            }
-          />
-          <TextField
-            id="standard-multiline-static"
-            sx={{ width: "100%" }}
-            multiline
-            rows={3}
-            placeholder="What's on your mind?"
-            variant="standard"
-          />
-        </Box>
-        <Stack direction="row" gap={1} className="emoji">
-          <EmojiEmotionsIcon color="warning" />
-          <ImageIcon color="secondary" />
-          <VideoCameraBackIcon color="success" />
-          <PersonAddIcon color="error" />
+        <form onSubmit={submitHandler}>
+          <Box display={"flex"}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe">
+                  <img
+                    className="postProfileImage"
+                    src={ PF + "person/noAvatar.png"}
+                    alt=""
+                  />
+                </Avatar>
+              }
+            />
 
-          <ButtonGroup variant="contained" aria-label="outlined  button group">
-            <Button>Post</Button>
-            <Button>
-              <DateRangeIcon />
-            </Button>
-          </ButtonGroup>
-        </Stack>
+            <TextField
+              id="standard-multiline-static"
+              sx={{ width: "100%" }}
+              multiline
+              rows={3}
+              placeholder={"What's on your mind " + User?.user.username + "?"}
+              variant="standard"
+              inputRef={desc}
+            />
+          </Box>
+          <Stack direction="row" gap={1} className="emoji">
+            <label htmlFor="file" className="imageicon">
+              <ImageIcon color="secondary" />
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept=".png,.jpeg,.jpg"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </label>
+            <EmojiEmotionsIcon color="warning" />
+            <VideoCameraBackIcon color="success" />
+            <PersonAddIcon color="error" />
 
-        {/* <hr className="line"></hr> */}
+            <ButtonGroup
+              variant="contained"
+              aria-label="outlined  button group"
+            >
+              <Button type="submit">Share</Button>
+            </ButtonGroup>
+          </Stack>
+        </form>
       </Card>
     </>
   );

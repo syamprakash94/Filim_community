@@ -4,6 +4,7 @@ import Signup from "./components/Signup/Signup";
 import Home from "./pages/Home";
 import Adminhome from "./pages/Adminhome";
 import Adminlogin from "./components/Adminlogin/Adminlogin";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route  path="/" element={ <Home /> }></Route>
         <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
 
         <Route path="/adminhome" element={<Adminhome/>}></Route>
         <Route path="/admin" element={<Adminlogin/>}></Route>

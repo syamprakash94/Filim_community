@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -18,21 +18,17 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const userInfo = localStorage.getItem("userInfo");
-  const tok = sessionStorage.getItem("token")
-  const token = JSON.parse(tok)
-  console.log("dddd",token);
-  useEffect(() => {
-    
-  if (userInfo) {
-   navigate("/")
-  }
-    
-  }, [])
-  
+  const tok = sessionStorage.getItem("token");
+  const token = JSON.parse(tok);
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -41,22 +37,18 @@ export default function Login() {
       const config = {
         headers: {
           "Content-type": "application/json",
-          "auth-header": token
+          "auth-header": token,
         },
       };
 
-     
+      const { data } = await axios.post("users/login", { email, password });
 
-      const { data } = await axios.post("users/login",{email,password} );
-      
       localStorage.setItem("userInfo", JSON.stringify(data));
-      console.log("rttt",data.token);
-      sessionStorage.setItem("token",JSON.stringify(data.token))
-      navigate("/") 
+      console.log("rttt", data.token);
+      sessionStorage.setItem("token", JSON.stringify(data.token));
 
-     
+      navigate("/");
     } catch (error) {
-     
       setError(error.response.data);
     }
   };
@@ -76,7 +68,6 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-         
 
           <Box
             component="form"
@@ -109,7 +100,9 @@ export default function Login() {
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
- <Typography sx={{color:"red"}}><small>{error}</small> </Typography>
+            <Typography sx={{ color: "red" }}>
+              <small>{error}</small>{" "}
+            </Typography>
             <Button
               type="submit"
               fullWidth
@@ -121,9 +114,8 @@ export default function Login() {
 
             <Grid container>
               <Grid item>
-               
                 <Link href="/signup" variant="body2">
-                Don't have an account? Sign Up
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>

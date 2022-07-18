@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import "./Signup.css";
+import { useRef } from "react";
 
 const theme = createTheme();
 
@@ -30,11 +31,12 @@ export default function SignUp() {
     console.log(data);
   };
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmpass, setConfirmpass] = useState("");
-  const [message, setMessage] = useState(null);
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const confirmpass = useRef();
+
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
@@ -42,10 +44,14 @@ export default function SignUp() {
   const handleSubmits = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmpass) {
+    if (password.current.value !== confirmpass.current.value) {
       setMessage("Passwords Do not Match");
     } else {
-      setMessage(null);
+      const user = {
+        username: username.current.value,
+        email: email.current.value,
+        password: password.current.value,
+      };
       try {
         const config = {
           headers: {
@@ -53,11 +59,7 @@ export default function SignUp() {
           },
         };
 
-        const { data } = await axios.post(
-          "users/register",
-          { username, email, password },
-          config
-        );
+        const res = await axios.post("users/register", user, config);
 
         navigate("/login");
       } catch (error) {
@@ -67,7 +69,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme} >
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -83,25 +85,23 @@ export default function SignUp() {
             component="h1"
             variant="h5"
             fontWeight={700}
-            
           >
             Sign up
           </Typography>
 
           <Box
             component="form"
-            noValidate
             onSubmit={handleSubmit(onSubmit) && handleSubmits}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField sx={{color:"black"}}
-                  required
+                <TextField
+                  sx={{ color: "black" }}
                   fullWidth
                   id="userName"
                   label="User Name"
-                  name="userName"
+                  name="name"
                   autoComplete="family-name"
                   {...register("name", {
                     required: "Name is required",
@@ -113,21 +113,18 @@ export default function SignUp() {
                   onKeyUp={() => {
                     trigger("name");
                   }}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  inputRef={username}
                 />
+
                 {errors.name && (
-                
-                    
-                    <Typography sx={{ color: "red" }}>  <small>
-                      {errors.name.message}</small>
-                    </Typography>
-                  
+                  <Typography sx={{ color: "red" }}>
+                    {" "}
+                    <small>{errors.name.message}</small>
+                  </Typography>
                 )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -143,74 +140,74 @@ export default function SignUp() {
                   onKeyUp={() => {
                     trigger("email");
                   }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  inputRef={email}
+        
                 />
                 {errors.email && (
-                 
-                    <Typography sx={{ color: "red" }}> <small>
-                      {errors.email.message}</small>
-                    </Typography>
-                  
+                  <Typography sx={{ color: "red" }}>
+                    {" "}
+                    <small>{errors.email.message}</small>
+                  </Typography>
                 )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  inputRef={password}
                   {...register("password", {
                     required: "Password is required",
                     pattern: {
-                      value: /^[a-zA-Z]{6,22}$/,
+                      value: /^[a-zA-Z0-9_.-]*$/,
                       message: "Minimum Six digits required",
                     },
                   })}
                   onKeyUp={() => {
                     trigger("password");
                   }}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+
+   
                 />
                 {errors.password && (
-                 
-                    <Typography sx={{ color: "red" }}> <small>
-                      {errors.password.message}</small>
-                    </Typography>
-                  
+                  <Typography sx={{ color: "red" }}>
+                    {" "}
+                    <small>{errors.password.message}</small>
+                  </Typography>
                 )}
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
-                  name="confirmpassword"
+                  name="confirmpass"
                   label="Confirm Password"
                   type="password"
                   id="confirmpassword"
                   autoComplete="new-password"
-                  value={confirmpass}
-                  onChange={(e) => setConfirmpass(e.target.value)}
+                  inputRef={confirmpass}
+      
                 />
               </Grid>
             </Grid>
             {message && (
-              <Typography sx={{ color: "red" }}><small>{message}</small></Typography>
+              <Typography sx={{ color: "red" }}>
+                <small>{message}</small>
+              </Typography>
             )}
             <Button
-            className="buttonsign"
+              className="buttonsign"
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up 
+              Sign Up
             </Button>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

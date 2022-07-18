@@ -6,6 +6,7 @@ const {
   likeDislikePost,
   getPost,
   timelineAll,
+  profileFeed,
 } = require("../controllers/postControllers");
 const Post = require("../models/Post");
 const User = require("../models/User");
@@ -22,5 +23,7 @@ router.route("/:id/like").put(likeDislikePost);
 router.route("/:id").get(getPost);
 //get timeline posts
 router.route("/timeline/:userId").get(timelineAll);
+// get users all posts
+router.route("/profile/:username").get(profileFeed);
 
 module.exports = router;

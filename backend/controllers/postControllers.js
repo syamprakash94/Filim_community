@@ -5,6 +5,7 @@ const User = require("../models/User");
 
 //create a post
 createPost = async (req, res) => {
+  
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();
@@ -47,7 +48,7 @@ deletePost = async (req, res) => {
 //like or dislike a post
 likeDislikePost = async (req, res) => {
   try {
-    console.log("hhhhh");
+  
     const post = await Post.findById(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
       await post.updateOne({ $push: { likes: req.body.userId } });
@@ -87,6 +88,17 @@ timelineAll = async (req, res) => {
   }
 };
 
+// get users all posts
+profileFeed = async (req, res) => {  
+  try {
+    const user = await User.findOne({username:req.params.username})
+    const posts = await Post.find({usrId:user._id})
+    res.status(200).json(posts)
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createPost,
   updatePost,
@@ -94,4 +106,5 @@ module.exports = {
   likeDislikePost,
   getPost,
   timelineAll,
+  profileFeed
 };

@@ -5,23 +5,27 @@ import Post from './Post'
 import { useState } from "react";
 import axios from "axios";
 
-
+const user = localStorage.getItem("userInfo");
+const User = JSON.parse(user);
+console.log(User,"bbb");
 
 const Feed = () => {
 
   const [posts,setPosts] = useState([])
-
+  
 
 
   useEffect(()=>{
     const fetchPosts = async () => {
-      const res =await axios.get("posts/timeline/62cfea2e54f10ae54a4f44ca")
-      setPosts(res.data)
+      const res =await axios.get("posts/timeline/"+User.user._id)
+      setPosts(res.data.sort((p1,p2) => {
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      }))
     }
  
     fetchPosts()
   },[])
-
+console.log(posts,"rrr");
   return (
     <Box flex={4} p={2}>
      
