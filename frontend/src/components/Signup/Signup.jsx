@@ -15,10 +15,14 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import "./Signup.css";
 import { useRef } from "react";
+import ImageIcon from "@mui/icons-material/Image";
+
+
 
 const theme = createTheme();
 
 export default function SignUp() {
+  
   // validation
   const {
     register,
@@ -191,6 +195,18 @@ export default function SignUp() {
                   inputRef={confirmpass}
       
                 />
+              </Grid>
+              <Grid item xs={12}>
+               Upload Profile Image
+               <label htmlFor="file" className="imageicon">
+              <ImageIcon color="secondary" />
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept=".png,.jpeg,.jpg"
+              />
+            </label>
               </Grid>
             </Grid>
             {message && (

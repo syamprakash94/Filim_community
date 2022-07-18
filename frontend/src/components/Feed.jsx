@@ -7,7 +7,7 @@ import axios from "axios";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
-console.log(User,"bbb");
+
 
 const Feed = () => {
 
