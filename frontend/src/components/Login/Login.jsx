@@ -11,6 +11,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Login.css"
+import { grey } from "@mui/material/colors";
 
 const theme = createTheme();
 
@@ -54,6 +56,7 @@ export default function Login() {
   };
 
   return (
+    <div className="loginmain">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -65,7 +68,7 @@ export default function Login() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" fontWeight={800} className="loginhead">
             Login
           </Typography>
 
@@ -123,5 +126,6 @@ export default function Login() {
         </Box>
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

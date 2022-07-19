@@ -17,12 +17,9 @@ import "./Signup.css";
 import { useRef } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 
-
-
 const theme = createTheme();
 
 export default function SignUp() {
-  
   // validation
   const {
     register,
@@ -39,7 +36,7 @@ export default function SignUp() {
   const email = useRef();
   const password = useRef();
   const confirmpass = useRef();
-
+  const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 
@@ -56,6 +53,22 @@ export default function SignUp() {
         email: email.current.value,
         password: password.current.value,
       };
+      console.log("user", user);
+
+      // multer
+      if (file) {
+        const data = new FormData();
+        const fileName = Date.now() + file.name;
+        data.append("name", fileName);
+        data.append("file", file);
+        user.profilePicture = fileName;
+        try {
+          await axios.post("/upload", data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       try {
         const config = {
           headers: {
@@ -73,6 +86,7 @@ export default function SignUp() {
   };
 
   return (
+    <div className="signupMain">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -129,6 +143,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -145,7 +160,6 @@ export default function SignUp() {
                     trigger("email");
                   }}
                   inputRef={email}
-        
                 />
                 {errors.email && (
                   <Typography sx={{ color: "red" }}>
@@ -173,8 +187,6 @@ export default function SignUp() {
                   onKeyUp={() => {
                     trigger("password");
                   }}
-
-   
                 />
                 {errors.password && (
                   <Typography sx={{ color: "red" }}>
@@ -193,20 +205,20 @@ export default function SignUp() {
                   id="confirmpassword"
                   autoComplete="new-password"
                   inputRef={confirmpass}
-      
                 />
               </Grid>
               <Grid item xs={12}>
-               Upload Profile Image
-               <label htmlFor="file" className="imageicon">
-              <ImageIcon color="secondary" />
-              <input
-                style={{ display: "none" }}
-                type="file"
-                id="file"
-                accept=".png,.jpeg,.jpg"
-              />
-            </label>
+                Upload Profile Image
+                <label htmlFor="file" className="imageicon">
+                  <ImageIcon color="secondary" />
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    id="file"
+                    accept=".png,.jpeg,.jpg"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </label>
               </Grid>
             </Grid>
             {message && (
@@ -219,7 +231,7 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2  }}
             >
               Sign Up
             </Button>
@@ -235,5 +247,6 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

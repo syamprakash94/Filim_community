@@ -9,6 +9,8 @@ import "./Userprofile.css";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
+console.log("User",User);
+const PF="http://localhost:8800/images/"
 
 
 const Userprofile = () => {
@@ -23,17 +25,14 @@ const Userprofile = () => {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={
-                  "https://images.unsplash.com/photo-1504805572947-34fad45aed93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y292ZXIlMjBwaG90b3xlbnwwfHwwfHw%3D&w=1000&q=80"
+                src={PF+user.profilepic
                 }
                 alt=""
               />
               <img
                 className="profileUserImg"
-                src={
-                   "https://images.pexels.com/photos/268941/pexels-photo-268941.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                }
-                alt=""
+                src={PF+User.user.profilePicture}
+                alt="nppp"
               />
               <div className="nameBlock">
                 <h3>{User?.user.username}</h3>

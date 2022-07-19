@@ -6,58 +6,55 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import Avatar from "@mui/material/Avatar";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ImageIcon from "@mui/icons-material/Image";
-
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Add.css";
 import { Box } from "@mui/system";
 import { Button, ButtonGroup, Stack } from "@mui/material";
 import axios from "axios";
 import { useRef } from "react";
+import { Navigate } from "react-router-dom";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
 
 const Add = (post) => {
-  
   const [user, setUser] = useState(null);
-  const PF = "http://localhost:3000/assets/";
+  const PF = "http://localhost:8800/images/";
   const desc = useRef();
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
-  
   const submitHandler = async (e) => {
-    
     e.preventDefault();
     const newPost = {
       userId: User?.user._id,
       desc: desc.current.value,
-      
     };
-   
-    
-// multer
-if (file) {
-  const data = new FormData();
-  const fileName = Date.now() + file.name;
-  data.append("name", fileName);
-  data.append("file", file);
-  newPost.img = fileName;
-  console.log(newPost);
-  try {
-    await axios.post("/upload", data);
-  } catch (err) {
-    console.log(err);
-  }
-}
+
+    // multer
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
+      console.log(newPost);
+      try {
+        await axios.post("/upload", data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     try {
       await axios.post("/posts", newPost);
-      window.location.reload()
+      window.location.reload();
     } catch (err) {}
   };
 
   // useEffect(() => {
-  //   const fetchUser = async () => {     
-  //     const res = await axios.get('users/'+post.userId);     
+  //   const fetchUser = async () => {
+  //     const res = await axios.get('users/'+post.userId);
   //     setUser(res.data);
   //   }
   //   fetchUser();
@@ -70,10 +67,13 @@ if (file) {
           <Box display={"flex"}>
             <CardHeader
               avatar={
-                <Avatar aria-label="recipe">
+                <Avatar
+                  aria-label="recipe"
+                  onClick={() => navigate("/profile")}
+                >
                   <img
                     className="postProfileImage"
-                    src={ PF + "person/noAvatar.png"}
+                    src={PF + User.user.profilePicture}
                     alt=""
                   />
                 </Avatar>

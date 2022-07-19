@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Checkbox } from "@mui/material";
+import { Box, Checkbox, Modal, TextField } from "@mui/material";
 import "./Post.css";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Card from "@mui/material/Card";
@@ -15,18 +15,36 @@ import Favorite from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
+import MessageIcon from "@mui/icons-material/Message";
+import SendIcon from '@mui/icons-material/Send';
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
-
+// modal
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: 400,
+  width: 300,
+  bgcolor: "background.paper",
+  border: "2px  ",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function Post({ post }) {
+  // modal
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
-  const PF="http://localhost:8800/images/"
-  console.log(PF+post.img,"jjj");
+  const PF = "http://localhost:8800/images/";
+  console.log(PF + post.img, "jjj");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +53,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get('users/'+post?.userId);
+      const res = await axios.get("users/" + post?.userId);
       setUser(res.data);
     };
     fetchUser();
@@ -78,11 +96,11 @@ export default function Post({ post }) {
       />
 
       <Typography sx={{ mb: 2, ml: 3 }}>{post.desc}</Typography>
-      
+
       <CardMedia
         component="img"
         height="20%"
-        image={PF+post.img}
+        image={PF + post.img}
         alt="Paella dish"
       />
 
@@ -107,7 +125,19 @@ export default function Post({ post }) {
           />
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon />
+          <MessageIcon onClick={handleOpen} />
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style} style={{ borderRadius: "70px" }}>
+            <TextField id="standard-basic" label="Comments" variant="standard" />
+            <SendIcon sx={{mt: 2}}/>
+            </Box>
+          </Modal>
         </IconButton>
         <span>{like}People like it</span>
         <span className="comments">Comments</span>

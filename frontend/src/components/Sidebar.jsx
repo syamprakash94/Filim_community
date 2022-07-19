@@ -77,6 +77,7 @@ const Sidebar = ({mode,setMode}) => {
       </List>
       </Box>
     </Box>
+   
   );
 };
 

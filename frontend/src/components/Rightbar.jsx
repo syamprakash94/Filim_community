@@ -5,6 +5,7 @@ import "./Rightbar.css"
 
 const Rightbar = () => {
   return (
+    <div className="rightbarmain">
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="" width={300}>
         
@@ -77,6 +78,7 @@ const Rightbar = () => {
         </AvatarGroup> */}
       </Box>
     </Box>
+    </div>
   );
 };
 

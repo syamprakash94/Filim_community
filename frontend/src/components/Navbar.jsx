@@ -18,6 +18,9 @@ import "./Navbar.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const user = localStorage.getItem("userInfo");
+const User = JSON.parse(user);
+console.log("User1",user);
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -51,38 +54,47 @@ const UserBox = styled("Box")(({ theme }) => ({
 
 const Navbar = () => {
   const [open, setopen] = useState(false);
-
-  const navigate = useNavigate()
+  const PF = "http://localhost:8800/images/";
+  const navigate = useNavigate();
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor:"black"}}>
+    
+    <div className="navbarmain"   >
       <StyledToolbar>
-        <Typography className="film" variant="h6" fontWeight={800}  sx={{ display: { xs: "none", sm: "block" } }}>
-          <span className="filmname">Film</span> Chatz <span className="filmname">.</span>
+        <Typography
+   
+          className="film"
+          variant="h6"
+          fontWeight={800}
+          sx={{ display: { xs: "none", sm: "block" } }}
+          onClick={() => navigate("/")}
+        >
+          <span className="filmname">Film</span> <span className="film1">Chatz{" "}</span>
+          <span className="filmname">.</span>
         </Typography>
         <TheatersOutlinedIcon sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
           <InputBase placeholder="search..." />
         </Search>
         <Icons>
-          <GroupIcon sx={{ width: 30, height: 30 }} />
+          <GroupIcon sx={{ width: 30, height: 30 }} className="buttonicons" />
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <MailIcon className="buttonicons" />
           </Badge>
 
           <Badge badgeContent={4} color="error">
-            <NotificationsIcon />
+            <NotificationsIcon className="buttonicons" />
           </Badge>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Awesome-Profile-Pic.jpg"
+            src={PF+User.user.profilePicture}
             onClick={(e) => setopen(true)}
           />
         </Icons>
         <UserBox onClick={(e) => setopen(true)}>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Awesome-Profile-Pic.jpg"
+            src={PF+User.user.profilePicture}
           />
           <Typography variant="span">Syam</Typography>
         </UserBox>
@@ -106,16 +118,18 @@ const Navbar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem onClick={ () =>{
-          localStorage.removeItem("userInfo")
-          navigate("/login")
-
-        }}>
-        Logout
+        <MenuItem
+          onClick={() => {
+            localStorage.removeItem("userInfo");
+            navigate("/login");
+          }}
+        >
+          Logout
         </MenuItem>
       </Menu>
       {/* Drop down */}
-    </AppBar>
+    </div>
+    
   );
 };
 

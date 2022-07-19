@@ -15,6 +15,7 @@ registerUser = async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
+      profilePicture:req.body.profilePicture,
     });
     //save user and respond
     const user = await newUser.save();

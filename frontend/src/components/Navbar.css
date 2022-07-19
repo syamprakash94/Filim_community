@@ -1,4 +1,19 @@
 .filmname{
     color:rgb(255, 103, 0) ;
+    cursor: pointer;
     
+}
+.film1{
+    cursor: pointer;
+    color: aliceblue;
+}
+.navbarmain{
+    /* width: 100%; */
+    font-family: 'jost', sans-serif;
+    background:linear-gradient(to bottom, #0f0c29, #302b63 , #24243e) ;
+    /* position: fixed; */
+  
+}
+.buttonicons{
+    color: aliceblue;
 }
