@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const { updateUser, registerUser, loginUser, deleteUser, getUser, followUser, unfollowUser } = require("../controllers/userControllers");
+const { updateUser, registerUser, loginUser, deleteUser, getUser, followUser, unfollowUser, getfriends } = require("../controllers/userControllers");
 
 
 
@@ -14,6 +14,8 @@ router.route("/:id").put(updateUser)
 router.route("/:id").delete(deleteUser)
 //get a user
 router.route("/:id").get(getUser)
+// get Friends
+router.route("/friends/:userId").get(getfriends)
 //follow a user
 router.route("/:id/follow").put(followUser)
 //unfollow a user

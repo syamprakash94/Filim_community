@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import {
   Box,
   ListItem,
@@ -15,7 +15,27 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import "./Sidebar.css"
-const Sidebar = ({mode,setMode}) => {
+import axios from "axios";
+
+import { useState } from "react";
+const Sidebar = ({mode,setMode,user}) => {
+
+  const PF = "http://localhost:8800/images/";
+  const [friends,setFriends] = useState([])
+
+  useEffect(() => {
+    const getFriends = async () =>{
+      try {
+        const friendList = await axios.get("/users/friends/"+user?._id)
+        setFriends(friendList.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFriends()
+  }, [user?._id])
+  
+
   return (
     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }} className="sidebar">
         <Box position="fixed" >

@@ -7,6 +7,7 @@ const {
   getPost,
   timelineAll,
   profileFeed,
+  comm,
 } = require("../controllers/postControllers");
 const Post = require("../models/Post");
 const User = require("../models/User");
@@ -15,6 +16,8 @@ const User = require("../models/User");
 router.route("/").post(createPost);
 //update a post
 router.route("/:id").put(updatePost);
+// comment on a post
+router.route("/comment").patch(comm);
 //delete a post
 router.route("/:id").delete(deletePost);
 //like or dislike a post

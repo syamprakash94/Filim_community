@@ -4,6 +4,7 @@ import Signup from "./components/Signup/Signup";
 import Home from "./pages/Home";
 import Adminhome from "./pages/Adminhome";
 import Adminlogin from "./components/Adminlogin/Adminlogin";
+import Adminproff from "./pages/Adminproff"
 import Profile from "./pages/Profile";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
         <Route path="/adminhome" element={<Adminhome/>}></Route>
         <Route path="/admin" element={<Adminlogin/>}></Route>
+        <Route path="/adminproff" element={<Adminproff/>}></Route>
       </Routes>
     </BrowserRouter>
   );

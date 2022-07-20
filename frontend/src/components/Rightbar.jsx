@@ -9,9 +9,9 @@ const Rightbar = () => {
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="" width={300}>
         
-        {/* <Typography varient="h6" fontWeight={600}  mb={2}>
-         Latest Photos
-        </Typography> */}
+        <Typography varient="h6" fontWeight={600}  mb={2}>
+         Friends
+        </Typography>
         {/* <ImageList cols={3} rowHeight={100} gap={5} >
             <ImageListItem>
                 <img src="https://wallpaperaccess.com/full/43867.jpg" alt="fg"/>
@@ -26,6 +26,16 @@ const Rightbar = () => {
                 <img src="https://wallpaperaccess.com/full/43867.jpg" alt="rg"/>
             </ImageListItem>
         </ImageList> */}
+        <div className="righbarFollowings">
+<div className="rightbarFollowing">
+  <img 
+  src=""
+  alt=""
+  className="rightbarFollowingimage"
+  />
+  <span className="rightbarFollowingName">anna don</span>
+</div>
+        </div>
         
     <Typography varient="h6" fontWeight={600} mt={2} mb={2}>
           Online Friends

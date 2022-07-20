@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box bgcolor={"background.default"} color={"text.primary"}>
-        <Navbar />
+        <Navbar f/>
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Sidebar setMode={setMode} mode={mode} />
           <Feed />

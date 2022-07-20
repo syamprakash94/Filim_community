@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import GroupIcon from "@mui/icons-material/Group";
-import "./Navbar.css";
+import "./Adminnavbar.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -53,16 +53,16 @@ const UserBox = styled("Box")(({ theme }) => ({
 
 const Navbar = () => {
   const [open, setopen] = useState(false);
-  const PF = "http://localhost:8800/images/";
+  // const PF = "http://localhost:8800/images/";
   const navigate = useNavigate();
 
   return (
     
-    <div className="navbarmain"   >
+    <div className="adminnavbarmain"   >
       <StyledToolbar>
         <Typography
    
-          className="film"
+        //   className="film"
           variant="h6"
           fontWeight={800}
           sx={{ display: { xs: "none", sm: "block" } }}
@@ -76,32 +76,32 @@ const Navbar = () => {
           <InputBase placeholder="search..." />
         </Search>
         <Icons>
-          <GroupIcon sx={{ width: 30, height: 30 }} className="buttonicons" />
-          <Badge badgeContent={4} color="error">
+          {/* <GroupIcon sx={{ width: 30, height: 30 }} className="buttonicons" /> */}
+          {/* <Badge badgeContent={4} color="error">
             <MailIcon className="buttonicons" />
-          </Badge>
+          </Badge> */}
 
           <Badge badgeContent={4} color="error">
             <NotificationsIcon className="buttonicons" />
           </Badge>
-          <Avatar
+          {/* <Avatar
             sx={{ width: 30, height: 30 }}
             src={PF+User?.user?.profilePicture}
             onClick={(e) => setopen(true)}
-          />
+          /> */}
         </Icons>
-        <UserBox onClick={(e) => setopen(true)}>
+        {/* <UserBox onClick={(e) => setopen(true)}>
           <Avatar
             sx={{ width: 30, height: 30 }}
             src={PF+User?.user?.profilePicture}
           />
           <Typography variant="span">Syam</Typography>
-        </UserBox>
+        </UserBox> */}
       </StyledToolbar>
 
       {/* Drop down */}
 
-      <Menu
+      {/* <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
         open={open}
@@ -125,7 +125,7 @@ const Navbar = () => {
         >
           Logout
         </MenuItem>
-      </Menu>
+      </Menu> */}
       {/* Drop down */}
     </div>
     

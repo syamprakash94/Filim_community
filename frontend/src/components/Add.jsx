@@ -73,7 +73,7 @@ const Add = (post) => {
                 >
                   <img
                     className="postProfileImage"
-                    src={PF + User.user.profilePicture}
+                    src={PF + User?.user?.profilePicture}
                     alt=""
                   />
                 </Avatar>

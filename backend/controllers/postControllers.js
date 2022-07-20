@@ -29,6 +29,31 @@ updatePost = async (req, res) => {
     res.status(500).json(err);
   }
 };
+// comment on a post
+const comm = async (req, res) => {
+  console.log("body", req.body);
+
+  const { ...comment } = req.body;
+
+  console.log("text", comment);
+  await Post.findByIdAndUpdate(
+    req.body.postId,
+    {
+      $push: { comments: comment },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("comments.postedBy", "_id username")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+      }
+    });
+};
 
 //delete a post
 deletePost = async (req, res) => {
@@ -106,5 +131,6 @@ module.exports = {
   likeDislikePost,
   getPost,
   timelineAll,
-  profileFeed
+  profileFeed,
+  comm
 };

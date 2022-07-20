@@ -6,6 +6,7 @@ const helmet = require ("helmet");
 const morgan = require ("morgan");
 const userRoute = require("./routes/users") 
 const postRoute = require("./routes/posts")
+const adminRoute = require("./routes/admin")
 const multer = require("multer")
 const path = require ("path")
 
@@ -30,7 +31,7 @@ const storage= multer.diskStorage({
         cb(null, "public/images");
     },
     filename: (req,file,cb) =>{
-        cb(null, req.body.name);
+        cb(null, req.body.nam);
         console.log(req.body);
     }
     
@@ -49,7 +50,8 @@ app.post('/api/upload', upload.single('file'),(req,res)=>{
 })
 
 app.use("/api/users",userRoute)
-app.use("/api/posts", postRoute)  
+app.use("/api/posts", postRoute)
+app.use("/api/admin", adminRoute)
 
 
 

@@ -8,5 +8,13 @@
   height: 40px;
 }
 .comments{
- margin-left: 240px;
+ margin-left: 220px;
+}
+.usercomment{
+  /* margin-top: 10px; */
+  background: scroll rgb(236, 231, 231);
+  /* max-width: 190px; */
+  border-radius: 5px;
+
+ 
 }

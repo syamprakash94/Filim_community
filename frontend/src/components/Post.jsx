@@ -16,7 +16,8 @@ import { useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import MessageIcon from "@mui/icons-material/Message";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
+import { blueGrey } from "@mui/material/colors";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
@@ -44,8 +45,11 @@ export default function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
   const PF = "http://localhost:8800/images/";
-  console.log(PF + post.img, "jjj");
   const navigate = useNavigate();
+
+  const commentss = post.comments;
+  const [comm, setComm] = useState(commentss);
+  const [val, setVal] = useState("");
 
   useEffect(() => {
     setIsLiked(post.likes.includes(User?.user?._id));
@@ -67,6 +71,21 @@ export default function Post({ post }) {
     } catch (err) {}
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
+  };
+  // comment
+  const makeComment = async (text, postId) => {
+    try {
+      const result = await axios.patch("/posts/comment", {
+        postId,
+        text,
+        username: User.user.username,
+      });
+      const results = result.data.comments;
+      setComm(results);
+      console.log(results, "ffff");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -91,7 +110,7 @@ export default function Post({ post }) {
           </Avatar>
         }
         action={<IconButton aria-label="settings"></IconButton>}
-        title={<Typography fontWeight={500}>{User?.user.username}</Typography>}
+        title={<Typography fontWeight={500}>{User?.user?.username}</Typography>}
         subheader={format(post.createdAt)}
       />
 
@@ -126,21 +145,63 @@ export default function Post({ post }) {
         </IconButton>
         <IconButton aria-label="share">
           <MessageIcon onClick={handleOpen} />
-
+<div className="modalbody">
           <Modal
+          sx={{overflow:'scroll'}}
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            
           >
-            <Box sx={style} style={{ borderRadius: "70px" }}>
-            <TextField id="standard-basic" label="Comments" variant="standard" />
-            <SendIcon sx={{mt: 2}}/>
-            </Box>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (e.target[0].value.length > 0) {
+                  makeComment(e.target[0].value, post._id);
+                  setVal("");
+                }
+              }}
+            >
+              <Box sx={style} style={{ borderRadius: "70px" }}>
+                <Typography fontWeight={700}>Comments</Typography>
+                
+
+                
+                <Box sx={{ mt: 2, ml: 1 }}>
+                  {comm.map((record) => {
+                    return (
+                      <div className="usercomment">{" "}
+                        <span className="spanname" style={{ fontWeight: "400", fontSize: "15px" }}>
+                          {record.username}
+                        </span>{" "}
+                        <span>:</span>
+                        <span style={{ fontWeight: "400", fontSize: "15px" }}>
+                          {" "}
+                          {record.text}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </Box>
+                <TextField
+                
+                  id="standard-basic"
+                  label="Comments"
+                  variant="standard"
+                  value={val}
+                  onChange={(e) => setVal(e.target.value)}
+                />
+                <SendIcon sx={{ mt: 2 }} />
+              </Box>
+            </form>
           </Modal>
+          </div>
+
         </IconButton>
-        <span>{like}People like it</span>
-        <span className="comments">Comments</span>
+       
+        <span >Comments</span>
+        <span className="comments">{like}People like it</span>
       </CardActions>
     </Card>
   );

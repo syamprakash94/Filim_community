@@ -7,10 +7,10 @@
     cursor: pointer;
     color: aliceblue;
 }
-.navbarmain{
+.adminnavbarmain{
     /* width: 100%; */
     font-family: 'jost', sans-serif;
-    background:linear-gradient(to bottom, #0f0c29, #302b63 , #24243e) ;
+    background:linear-gradient(to bottom, #4e73df, #4e73df , #4e73df) ;
     /* position: fixed; */
   
 }

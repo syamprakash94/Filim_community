@@ -9,7 +9,6 @@ import "./Userprofile.css";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
-console.log("User",User);
 const PF="http://localhost:8800/images/"
 
 
