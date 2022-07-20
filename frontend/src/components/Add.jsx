@@ -6,7 +6,7 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import Avatar from "@mui/material/Avatar";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ImageIcon from "@mui/icons-material/Image";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./Add.css";
 import { Box } from "@mui/system";
@@ -17,14 +17,15 @@ import { Navigate } from "react-router-dom";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
+console.log(User,"User");
 
 const Add = (post) => {
+
   const [user, setUser] = useState(null);
   const PF = "http://localhost:8800/images/";
   const desc = useRef();
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
@@ -39,11 +40,11 @@ const Add = (post) => {
       data.append("name", fileName);
       data.append("file", file);
       newPost.img = fileName;
-      console.log(newPost);
+      console.log(newPost,"new");
       try {
-        await axios.post("/upload", data);
+        await axios.post("/upload", data); 
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
     try {
@@ -69,13 +70,15 @@ const Add = (post) => {
               avatar={
                 <Avatar
                   aria-label="recipe"
-                  onClick={() => navigate("/profile")}
+                  // onClick={() => navigate("/profile")}
                 >
+                  <Link to={`/profile/${user?._id}`}>
                   <img
                     className="postProfileImage"
                     src={PF + User?.user?.profilePicture}
                     alt=""
                   />
+                  </Link>
                 </Avatar>
               }
             />

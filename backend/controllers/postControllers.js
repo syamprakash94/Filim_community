@@ -1,7 +1,7 @@
 
 const { Promise } = require("mongoose");
 const Post = require("../models/Post");
-const User = require("../models/User");
+const User = require("../models/User"); 
 
 //create a post
 createPost = async (req, res) => {
@@ -115,9 +115,11 @@ timelineAll = async (req, res) => {
 
 // get users all posts
 profileFeed = async (req, res) => {  
+  console.log(req.params.userId,"soooo");
+
   try {
-    const user = await User.findOne({username:req.params.username})
-    const posts = await Post.find({usrId:user._id})
+    // const user = await User.findOne({username:req.params.username})
+    const posts = await Post.find({userId:req.params.userId})
     res.status(200).json(posts)
   } catch (err) {
     res.status(500).json(err);

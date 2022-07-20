@@ -8,7 +8,7 @@ const Adminhome = () => {
     <div>
       <Adminnavbar/>
       <Stack direction="row" justifyContent="space-between" >
-      <Admindashboard/>
+      <Admindashboard />
       <Usertable/>
       </Stack>
     </div>

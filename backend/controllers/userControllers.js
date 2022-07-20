@@ -1,10 +1,11 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const generateToken = require("../utils/generateToken");
+const { Promise } = require("mongoose");
 
 //signup or register user
 registerUser = async (req, res) => {
-  console.log(req.body,"call is in the ebackend");
+  console.log(req.body, "call is in the ebackend");
   try {
     //generate new password and bcrypt
     const salt = await bcrypt.genSalt(10);
@@ -15,7 +16,7 @@ registerUser = async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
-      profilePicture:req.body.profilePicture,
+      profilePicture: req.body.profilePicture,
     });
     //save user and respond
     const user = await newUser.save();
@@ -28,14 +29,12 @@ registerUser = async (req, res) => {
 
 //login user
 
-
 loginUser = async (req, res) => {
-  
   const user = await User.findOne({ email: req.body.email });
-  console.log(user,"kkk");
+  console.log(user, "kkk");
   if (user && (await bcrypt.compare(req.body.password, user.password))) {
     res.status(200).json({
-      user, 
+      user,
       token: generateToken(user._id),
     });
   } else {
@@ -56,7 +55,7 @@ updateUser = async (req, res) => {
     }
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
-        $set: req.body, 
+        $set: req.body,
       });
       res.status(200).json("Account has been updated");
     } catch (err) {
@@ -83,8 +82,10 @@ deleteUser = async (req, res) => {
 
 //   get user
 getUser = async (req, res) => {
+  
   try {
-    const user = await User.findById(req.params.id);
+    const user =      await User.findById(req.params.id)
+   
     const { password, updatedAt, ...other } = user._doc;
     res.status(200).json(other);
   } catch (err) {
@@ -94,24 +95,25 @@ getUser = async (req, res) => {
 
 // get Friends
 
-getfriends= async (req,res) => {
+getfriends = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId)
+    const user = await User.findById(req.params.userId);
     const friends = await Promise.all(
-      user.followings.map(friendId=>{
-        return User.findById(friendId)
+      user.followings.map((friendId) => {
+        return User.findById(friendId);
       })
-    )
-    let friendlist = []
-    friends.map(friend=>{
-      const{_id,username,profilePicture}= friend
-      friendlist.push({_id,username,profilePicture})
-    })
-    res.status(200).json(friendlist)
+    );
+    let friendlist = [];
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
+      friendlist.push({ _id, username, profilePicture });
+    });
+    console.log(friendlist, "list");
+    res.status(200).json(friendlist);
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
-}
+};
 
 //follow a user
 followUser = async (req, res) => {
@@ -121,7 +123,7 @@ followUser = async (req, res) => {
       const currentUser = await User.findById(req.body.userId);
       if (!user.followers.includes(req.body.userId)) {
         await user.updateOne({ $push: { followers: req.body.userId } });
-        await currentUser.updateOne({ $push: { followings: req.body.userId } });
+        await currentUser.updateOne({ $push: { followings: req.params.id } });
         res.status(200).json("user has been followed");
       } else {
         res.status(403).json("you all ready follow this user");
@@ -142,7 +144,7 @@ unfollowUser = async (req, res) => {
       const currentUser = await User.findById(req.body.userId);
       if (user.followers.includes(req.body.userId)) {
         await user.updateOne({ $pull: { followers: req.body.userId } });
-        await currentUser.updateOne({ $pull: { followings: req.body.userId } });
+        await currentUser.updateOne({ $pull: { followings: req.params.id } });
         res.status(200).json("user has been unfollowed");
       } else {
         res.status(403).json("you don't follow this user");
@@ -163,5 +165,5 @@ module.exports = {
   getUser,
   followUser,
   unfollowUser,
-  getfriends
+  getfriends,
 };

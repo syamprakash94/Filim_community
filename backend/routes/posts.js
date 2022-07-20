@@ -27,6 +27,6 @@ router.route("/:id").get(getPost);
 //get timeline posts
 router.route("/timeline/:userId").get(timelineAll);
 // get users all posts
-router.route("/profile/:username").get(profileFeed);
+router.route("/profile/:userId").get(profileFeed);
 
 module.exports = router;

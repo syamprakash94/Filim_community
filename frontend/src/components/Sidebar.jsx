@@ -18,22 +18,11 @@ import "./Sidebar.css"
 import axios from "axios";
 
 import { useState } from "react";
-const Sidebar = ({mode,setMode,user}) => {
+const Sidebar = ({mode,setMode}) => {
 
-  const PF = "http://localhost:8800/images/";
-  const [friends,setFriends] = useState([])
+  
 
-  useEffect(() => {
-    const getFriends = async () =>{
-      try {
-        const friendList = await axios.get("/users/friends/"+user?._id)
-        setFriends(friendList.data)
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getFriends()
-  }, [user?._id])
+  
   
 
   return (

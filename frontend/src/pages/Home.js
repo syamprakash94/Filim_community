@@ -24,7 +24,7 @@ const Home = () => {
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Sidebar setMode={setMode} mode={mode} />
           <Feed />
-          <Rightbar />
+          <Rightbar  />
         </Stack>
       </Box>
     </ThemeProvider>

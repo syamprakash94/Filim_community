@@ -13,7 +13,7 @@ const Adminproff = () => {
         <Adminnavbar/>
       <Stack direction="row" justifyContent="space-between" >
       <Admindashboard/>
-      <Usertable/>
+      {/* <Usertable/> */}
       </Stack>
     </div>
   )

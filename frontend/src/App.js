@@ -6,6 +6,7 @@ import Adminhome from "./pages/Adminhome";
 import Adminlogin from "./components/Adminlogin/Adminlogin";
 import Adminproff from "./pages/Adminproff"
 import Profile from "./pages/Profile";
+import Middleuserregister from "./pages/Middleuserregister";
 
 function App() {
 
@@ -16,11 +17,14 @@ function App() {
         <Route  path="/" element={ <Home /> }></Route>
         <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/profile/:username" element={<Profile />}></Route>
 
         <Route path="/adminhome" element={<Adminhome/>}></Route>
         <Route path="/admin" element={<Adminlogin/>}></Route>
         <Route path="/adminproff" element={<Adminproff/>}></Route>
+
+        <Route path="/middleuser" element={<Middleuserregister/>}></Route>
+
       </Routes>
     </BrowserRouter>
   );

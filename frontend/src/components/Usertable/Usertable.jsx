@@ -9,18 +9,20 @@ import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  // createData('Eclair', 262, 16.0, 24, 6.0),
-  // createData('Cupcake', 305, 3.7, 67, 4.3),
-  // createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+//   // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   // createData('Eclair', 262, 16.0, 24, 6.0),
+//   // createData('Cupcake', 305, 3.7, 67, 4.3),
+//   // createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 export default function BasicTable() {
   const [details, setDetails] = useState([]);
@@ -33,7 +35,7 @@ export default function BasicTable() {
             "Content-type": "application/json",
           },
         };
-        const { data } = await axios.get("/adminhome", config);
+        const {data}  = await axios.get("/admin/adminhome", config);
         console.log("bfvbvb", data);
         setDetails(data);
       } catch (error) {
@@ -60,17 +62,27 @@ export default function BasicTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {details.map((row) => (
                 <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  key={details._id}
+                  
                 >
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.username}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{<img src />}</TableCell>
-                  <TableCell align="right"></TableCell>
+                  <TableCell align="right">{row.email}</TableCell>
+                  <TableCell align="right"><img src={`/images/${details.profilePicture}`}/></TableCell>
+                  <TableCell align="right">
+                    {" "}
+                    <ButtonGroup
+                      variant="contained"
+                      aria-label="outlined primary button group"
+                    >
+                      <Button>Block</Button>
+                      <Button>Un block</Button>
+                      
+                    </ButtonGroup>
+                  </TableCell>
                   {/* <TableCell align="right">{row.protein}</TableCell> */}
                 </TableRow>
               ))}

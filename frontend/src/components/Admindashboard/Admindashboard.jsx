@@ -10,9 +10,11 @@ const Admindashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div id="wrapper">
+    <div id="wrapper" 
+    // style={{backgroundColor:"darkgreen"}}
+     className="sidebarwrapper">
       <ul
-        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        class="navbar-nav bg-gradient sidebar sidebar-dark accordion"
         id="accordionSidebar"
       >
         <a
