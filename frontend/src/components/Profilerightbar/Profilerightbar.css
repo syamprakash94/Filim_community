@@ -1,0 +1,52 @@
+.rightbarFriendList{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    /* background-color: antiquewhite; */
+    /* width: 200px; */
+    color: black;
+
+}
+.rightbarFriend{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+.rightbarProfileImageContainer{
+    margin-right: 10px;
+    position: relative;
+
+}
+.rightbarProfileImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.rightbarOnline{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    border: 2px solid aliceblue;
+
+}
+.hrTag{
+    margin-top: 20px;
+    background-color: darkgrey;
+}
+.rightbarFollowingimage{
+    width: 50px;
+    height: 50px;
+}
+.rightbarFollowingName{
+    margin-left: 20px; 
+}
+.righbarFollowings{
+    background-color: aliceblue;
+    width: 200px;
+}

@@ -14,24 +14,35 @@ createPost = async (req, res) => {
     res.status(500).json("err");
   }
 };
+// edit post
+editPost= async (req,res) => {
+ 
+  try {
+    const post = await Post.findOne({_id:req.params.postId})
+    res.status(200).json(post)
+  } catch (err) {
+    res.stattus(500).json("err")
+  }
+}
 
 //update a post
 updatePost = async (req, res) => {
+  console.log("you");
+  const {desc,postId} = req.body
   try {
-    const post = await Post.findById(req.params.id);
-    if (post.userId === req.body.userId) {
-      await post.updateOne({ $set: req.body });
-      res.status(200).json("the post has been updated");
-    } else {
-      res.status(403).json("you can update only your post");
-    }
+    const post = await Post.findByIdAndUpdate(postId,{
+      desc:desc
+    },{
+      new:true
+    });
+    res.status(200).json(post)
   } catch (err) {
     res.status(500).json(err);
   }
 };
 // comment on a post
-const comm = async (req, res) => {
-  console.log("body", req.body);
+comm = async (req, res) => {
+ 
 
   const { ...comment } = req.body;
 
@@ -57,14 +68,11 @@ const comm = async (req, res) => {
 
 //delete a post
 deletePost = async (req, res) => {
+  console.log("man");
   try {
     const post = await Post.findById(req.params.id);
-    if (post.userId === req.body.userId) {
-      await post.deleteOne();
-      res.status(200).json("the post has been deleted");
-    } else {
-      res.status(403).json("you can delete only your post");
-    }
+   await post.deleteOne()
+   res.status(200).json("post deleted")
   } catch (err) {
     res.status(500).json(err);
   }
@@ -104,9 +112,10 @@ timelineAll = async (req, res) => {
     const userPosts = await Post.find({ userId: currentUser._id });
     const friendPosts = await Promise.all(
       currentUser.followings.map((friendId) => {
-        Post.find({ userId: friendId });
+        return Post.find({ userId: friendId });
       })
     );
+    // console.log(,"friendPosts");
     res.status(200).json(userPosts.concat(...friendPosts));
   } catch (err) {
     res.status(500).json(err);
@@ -128,6 +137,7 @@ profileFeed = async (req, res) => {
 
 module.exports = {
   createPost,
+  editPost,
   updatePost,
   deletePost,
   likeDislikePost,

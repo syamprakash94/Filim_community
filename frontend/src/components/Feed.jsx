@@ -8,29 +8,34 @@ import axios from "axios";
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
 
-const Feed = ({id}) => {
+const Feed = ({id,home}) => {
   const [posts, setPosts] = useState([]);
-
   const fetchPosts = async () => {
     const res = id 
-    ? await axios.get("/posts/profile/" + id) 
+    
+    ? await axios.get("/posts/profile/"+id) 
     : await axios.get("posts/timeline/" + User?.user?._id);
+    console.log(res.data,"res");
     setPosts(
       res.data.sort((p1, p2) => {
         return new Date(p2?.createdAt)-new Date(p1?.createdAt);
       })
     );
   };
-
+   
   useEffect(() => {
    
 
+
     fetchPosts();
-  }, []);
-console.log(posts,"yyyy");
+  }, [id]);
+  
+
   return (
     <Box flex={4} p={2}>
-      <Add />
+      {User?.user._id === id && (<Add fetchPost={fetchPosts}/>)}
+      {home && (<Add fetchPost={fetchPosts}/>)}
+    
       {posts.map((p) => (
         <Post key={p?._id} post={p} />
       ))}

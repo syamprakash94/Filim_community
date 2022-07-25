@@ -7,6 +7,7 @@ const morgan = require ("morgan");
 const userRoute = require("./routes/users") 
 const postRoute = require("./routes/posts")
 const adminRoute = require("./routes/admin")
+const middleuserRoute = require("./routes/middleuser")
 const multer = require("multer")
 const path = require ("path")
 
@@ -52,6 +53,7 @@ app.post('/api/upload', upload.single('file'),(req,res)=>{
 app.use("/api/users",userRoute)
 app.use("/api/posts", postRoute)
 app.use("/api/admin", adminRoute)
+app.use("/api/middleuser", middleuserRoute)
 
 
 

@@ -8,14 +8,17 @@ const {
   timelineAll,
   profileFeed,
   comm,
+  editPost,
 } = require("../controllers/postControllers");
 const Post = require("../models/Post");
 const User = require("../models/User");
 
 //create a post
 router.route("/").post(createPost);
+// edit post
+router.route("/editpost/:postId").get(editPost);
 //update a post
-router.route("/:id").put(updatePost);
+router.route("/updatepost").patch(updatePost);
 // comment on a post
 router.route("/comment").patch(comm);
 //delete a post

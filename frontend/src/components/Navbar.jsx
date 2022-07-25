@@ -16,10 +16,12 @@ import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import "./Navbar.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
+
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -116,7 +118,11 @@ const Navbar = () => {
         }}
       >
         <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+        <Link to={`/profile/${User.user._id}`}>
+        <MenuItem
+        
+        >My account</MenuItem>
+</Link>
         <MenuItem
           onClick={() => {
             localStorage.removeItem("userInfo");

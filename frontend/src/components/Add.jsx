@@ -17,7 +17,7 @@ import { Navigate } from "react-router-dom";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
-console.log(User,"User");
+
 
 const Add = (post) => {
 
@@ -70,7 +70,7 @@ const Add = (post) => {
               avatar={
                 <Avatar
                   aria-label="recipe"
-                  // onClick={() => navigate("/profile")}
+               
                 >
                   <Link to={`/profile/${user?._id}`}>
                   <img
@@ -104,9 +104,9 @@ const Add = (post) => {
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </label>
-            <EmojiEmotionsIcon color="warning" />
+            {/* <EmojiEmotionsIcon color="warning" />
             <VideoCameraBackIcon color="success" />
-            <PersonAddIcon color="error" />
+            <PersonAddIcon color="error" /> */}
 
             <ButtonGroup
               variant="contained"

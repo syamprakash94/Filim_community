@@ -1,7 +1,12 @@
 import React from 'react'
 import "./Middleuserreg.css"
+import { useNavigate } from "react-router-dom";
 
 const Middleuserreg = () => {
+
+        const navigate = useNavigate();
+        
+
   return (
     <div className='middleregwrapp'>
         <div class="container register">
@@ -9,8 +14,9 @@ const Middleuserreg = () => {
                     <div class="col-md-3 register-left">
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Welcome</h3>
-                        <p>Login here</p>
-                        <input className='midLoginBtn' type="submit" name="" value="Login"/><br/>
+                        <p                        
+                        >Login here</p>
+                        <input className='midLoginBtn' type="submit" name="" value="Login" onClick={() => navigate("/middleuserlogin")}/><br/>
                     </div>
                     <div class="col-md-9 register-right">
                         {/* <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
