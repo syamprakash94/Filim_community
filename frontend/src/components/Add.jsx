@@ -72,7 +72,7 @@ const Add = (post) => {
                   aria-label="recipe"
                
                 >
-                  <Link to={`/profile/${user?._id}`}>
+                  <Link to={`/profile/${User?.user?._id}`}>
                   <img
                     className="postProfileImage"
                     src={PF + User?.user?.profilePicture}

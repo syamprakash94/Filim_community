@@ -8,6 +8,8 @@ import Rightbar from "../Rightbar";
 import Sidebar from "../Sidebar";
 import "./Userprofile.css";
 import Profilerightbar from "../Profilerightbar/Profilerightbar"
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+
 
 
 
@@ -50,14 +52,23 @@ const Userprofile = () => {
                 src="https://aatfweb.files.wordpress.com/2017/06/film-1155439_960_720.jpg"
                 alt=""
               />
+            
               <img
                 className="profileUserImg"
                 src={PF+user.profilePicture}
-                alt="ppp"
-              />
+                alt="ppp"               
+              />  
+              {/* <div style={{marginRight:"100px"}}>
+               <BorderColorIcon/> 
+             
+               </div>             */}
+
+
+               
               <div className="nameBlock">
                 <h3 style={{color:"black"}}>{user.username}</h3>
                 <h6 className="have">Have a nice day!!</h6>
+               
               </div>
             </div>
             <div className="profileInfo">

@@ -16,7 +16,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import MessageIcon from "@mui/icons-material/Message";
 import SendIcon from "@mui/icons-material/Send";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 const user = localStorage.getItem("userInfo");
 const User = JSON.parse(user);
@@ -56,7 +56,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get("/users/"+ post?.userId);
+      const res = await axios.get("/users/" + post?.userId);
       setUser(res.data);
     };
     fetchUser();
@@ -64,7 +64,7 @@ export default function Post({ post }) {
 
   const likeHandler = async () => {
     try {
-      await axios.put("/posts/"+ post._id + "/like", {
+      await axios.put("/posts/" + post._id + "/like", {
         userId: User.user._id,
       });
     } catch (err) {}
@@ -81,7 +81,6 @@ export default function Post({ post }) {
       });
       const results = result.data.comments;
       setComm(results);
-     
     } catch (err) {
       console.log(err);
     }
@@ -99,19 +98,26 @@ export default function Post({ post }) {
                 src={
                   user.profilePicture
                     ? PF + user.profilePicture
-                    : PF +"images/noAvatar.png"
+                    : PF + "images/noAvatar.png"
                 }
                 alt="noo"
               />
             </Link>
           </Avatar>
-          
         }
         title={<Typography fontWeight={500}>{user?.username}</Typography>}
         subheader={format(post?.createdAt)}
-        action={<IconButton aria-label="settings" onClick={() => navigate(`/editpost/${post._id}`)}>  <EditIcon /></IconButton>}
-        />
-      
+        action={
+          <IconButton
+            aria-label="settings"
+            onClick={() => navigate(`/editpost/${post._id}`)}
+          >
+            {" "}
+            <EditIcon />
+          </IconButton>
+        }
+      />
+
       <Typography sx={{ mb: 2, ml: 3 }}>{post?.desc}</Typography>
 
       <CardMedia
