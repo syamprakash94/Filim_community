@@ -25,7 +25,7 @@ const Middleuserreg = () => {
   const [drop, setDrop] = useState();
 
   const onsubmit = async (data) => {
-    // console.log("kkkkkkkk");
+    
     const middleuser = {
       firstname: data.firstname,
       lastname: data.lastname,

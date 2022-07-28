@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"
-import { grey } from "@mui/material/colors";
+
 
 const theme = createTheme();
 
@@ -46,7 +46,7 @@ export default function Login() {
       const { data } = await axios.post("users/login", { email, password });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-      console.log("rttt", data.token);
+     
       sessionStorage.setItem("token", JSON.stringify(data.token));
 
       navigate("/");

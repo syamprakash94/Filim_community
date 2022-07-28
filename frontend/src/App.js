@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Middleuserregister from "./pages/Middleuserregister";
 import Middleuserlogin from "./components/Middleuserlogin/Middleuserlogin";
 import Editpost from "./pages/Editpost";
+import Userprofileedit from "./pages/Userprofileedit";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile/:username" element={<Profile />}></Route>
         <Route path="/editpost/:postId" element={<Editpost />}></Route>
+        <Route path="/userprofileedit" element={<Userprofileedit/>}></Route>
         {/* admin routes*/}
         <Route path="/adminhome" element={<Adminhome />}></Route>
         <Route path="/admin" element={<Adminlogin />}></Route>

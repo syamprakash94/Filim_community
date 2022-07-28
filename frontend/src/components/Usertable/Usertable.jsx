@@ -9,8 +9,7 @@ import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
-import ButtonGroup from '@mui/material/ButtonGroup';
-
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -25,6 +24,7 @@ function createData(name, calories, fat, carbs, protein) {
 // ];
 
 export default function BasicTable() {
+  const PF = "http://localhost:8800/images/";
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function BasicTable() {
             "Content-type": "application/json",
           },
         };
-        const {data}  = await axios.get("/admin/adminhome", config);
+        const { data } = await axios.get("/admin/adminhome", config);
         console.log("bfvbvb", data);
         setDetails(data);
       } catch (error) {
@@ -63,15 +63,14 @@ export default function BasicTable() {
             </TableHead>
             <TableBody>
               {details.map((row) => (
-                <TableRow
-                  key={details._id}
-                  
-                >
+                <TableRow key={details._id}>
                   <TableCell component="th" scope="row">
                     {row.username}
                   </TableCell>
                   <TableCell align="right">{row.email}</TableCell>
-                  <TableCell align="right"><img src={`/images/${details.profilePicture}`}/></TableCell>
+                  <TableCell align="right">
+                    <img src={PF + row.profilePicture} style={{height:"50px", width:"50px"}} />
+                  </TableCell>
                   <TableCell align="right">
                     {" "}
                     <ButtonGroup
@@ -80,7 +79,6 @@ export default function BasicTable() {
                     >
                       <Button>Block</Button>
                       <Button>Un block</Button>
-                      
                     </ButtonGroup>
                   </TableCell>
                   {/* <TableCell align="right">{row.protein}</TableCell> */}

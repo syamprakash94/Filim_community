@@ -44,12 +44,16 @@ loginUser = async (req, res) => {
 
 //update user
 updateUser = async (req, res) => {
+  console.log(req.body);
+  console.log("body");
   if (req.body.userId === req.params.id || req.body.isAdmin) {
-    if (req.body.password) {
+    if (req.body.password) {  
+     
       try {
-        const salt = await bcrypt.gensalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
+        const salt = await bcrypt.genSalt(10);
+        req.body.password = await bcrypt.hash(req.body.password,salt);
       } catch (err) {
+        console.log(err);
         return res.status(500).json(err);
       }
     }

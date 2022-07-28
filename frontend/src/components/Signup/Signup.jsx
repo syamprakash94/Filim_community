@@ -53,7 +53,7 @@ export default function SignUp() {
         email: email.current.value,
         password: password.current.value,
       };
-      console.log("user", user);
+     
 
       // multer
       if (file) {

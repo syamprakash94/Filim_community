@@ -88,7 +88,7 @@ const Add = (post) => {
               sx={{ width: "100%" }}
               multiline
               rows={3}
-              placeholder={"What's on your mind " + User?.user.username + "?"}
+              placeholder={"What's on your mind ?"}
               variant="standard"
               inputRef={desc}
             />
