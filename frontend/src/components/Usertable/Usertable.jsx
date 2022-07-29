@@ -12,9 +12,7 @@ import { Button } from "@mui/material";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
+
 
 
 
@@ -112,18 +110,18 @@ export default function BasicTable() {
   return (
     <div
       className="tableuser"
-      style={{ marginTop: "100px", marginRight: "300px" }}
+      style={{ marginTop: "50px", marginRight: "300px" }}
     >
       <div className="container">
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 950 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Username </TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Proifile picture</TableCell>
-                <TableCell align="right">Options</TableCell>
-                {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Proifile picture</TableCell>
+                <TableCell align="center">Options</TableCell>
+            
               </TableRow>
             </TableHead>
             <TableBody>
@@ -132,11 +130,11 @@ export default function BasicTable() {
                   <TableCell component="th" scope="row">
                     {row.username}
                   </TableCell>
-                  <TableCell align="right">{row.email}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">
                     <img src={PF + row.profilePicture} style={{height:"50px", width:"50px"}} />
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     {" "}
                     <ButtonGroup
                       variant="contained"

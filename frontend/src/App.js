@@ -10,6 +10,7 @@ import Middleuserregister from "./pages/Middleuserregister";
 import Middleuserlogin from "./components/Middleuserlogin/Middleuserlogin";
 import Editpost from "./pages/Editpost";
 import Userprofileedit from "./pages/Userprofileedit";
+import Adminposttable from "./pages/Adminposttable";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/adminhome" element={<Adminhome />}></Route>
         <Route path="/admin" element={<Adminlogin />}></Route>
         <Route path="/adminproff" element={<Adminproff />}></Route>
+        <Route path="/posttable" element={<Adminposttable />}></Route>
         {/* middleuser routes*/}
         <Route path="/middleuser" element={<Middleuserregister />}></Route>
         <Route path="/middleuserlogin" element={<Middleuserlogin />}></Route>

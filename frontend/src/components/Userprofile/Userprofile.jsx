@@ -10,7 +10,7 @@ import Sidebar from "../Sidebar";
 import "./Userprofile.css";
 import Profilerightbar from "../Profilerightbar/Profilerightbar"
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-
+import ImageIcon from "@mui/icons-material/Image";
 
 
 
@@ -26,8 +26,27 @@ const Userprofile = () => {
   const [user, setUser] = useState('')
   const userId = useParams().username
   const [userid, setUserid] = useState(userId)
+  const [file, setFile] = useState(null);
 
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+   // multer
+   if (file) {
+    const data = new FormData();
+    const fileName = Date.now() + file.name;
+    data.append("name", fileName);
+    data.append("file", file);
+    user.profilePicture = fileName;
+    try {
+      await axios.post("/upload", data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  }
 
   useEffect(() => {
    const fetchUser = async () => {
@@ -46,6 +65,7 @@ const Userprofile = () => {
         <Sidebar />
         <div className="profileRight">
           <div className="profileRightTop">
+          <form onSubmit={submitHandler}>
             <div className="profileCover">
               <img
                 className="profileCoverImg"
@@ -59,11 +79,21 @@ const Userprofile = () => {
                 src={PF+user.profilePicture}
                 alt="ppp"               
               />  
-              {/* <div style={{marginRight:"100px"}}>
-               <BorderColorIcon/> 
+              <div style={{marginLeft:"570px"}}>
+              <label htmlFor="file" className="imageicon">
+                  {/* <ImageIcon color="secondary" /> */}
+                  <BorderColorIcon/> 
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    id="file"
+                    accept=".png,.jpeg,.jpg"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </label>
              
-               </div>             */}
-
+               </div>            
+               
 
                
               <div className="nameBlock">
@@ -72,6 +102,7 @@ const Userprofile = () => {
                
               </div>
             </div>
+            </form>
             <div className="profileInfo">
               <h4 className="profileInfoName"></h4>
               <span className="profileInfoDesc"></span>

@@ -19,13 +19,16 @@ const Admindashboard = () => {
       >
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          // href="index.html"
+          onClick={() => navigate("/admin")}
+          style={{cursor:"pointer"}}
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
           </div>
           <div class="sidebar-brand-text mx-3">
-            Sup Admin <sup>2</sup>
+             Admin 
+            {/* <sup>2</sup> */}
           </div>
         </a>
 
@@ -47,6 +50,17 @@ const Admindashboard = () => {
             <span  style={{cursor:"pointer"}}
             onClick={() => navigate("/adminproff")}
             >Professional Users</span>
+            
+          </a>
+        </li>
+
+        <li class="nav-item active">
+          
+          <a  class="nav-link" >
+            <i class="fas fa-fw fa-wrench"></i>
+            <span  style={{cursor:"pointer"}}
+            onClick={() => navigate("/posttable")}
+            >User Posts</span>
             
           </a>
         </li>
