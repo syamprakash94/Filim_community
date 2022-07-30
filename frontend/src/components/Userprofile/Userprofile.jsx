@@ -81,7 +81,6 @@ const Userprofile = () => {
               />  
               <div style={{marginLeft:"570px"}}>
               <label htmlFor="file" className="imageicon">
-                  {/* <ImageIcon color="secondary" /> */}
                   <BorderColorIcon/> 
                   <input
                     style={{ display: "none" }}
